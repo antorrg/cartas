@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
+/* index.css */
+
+:root {
+  /* Colores */
+  --color-bg:          #FAF7F2;
+  --color-surface:     #F0EBE3;
+  --color-border:      #DDD6CC;
+  --color-text:        #2D2D2D;
+  --color-text-muted:  #7A7060;
+  --color-accent:      #7C9E87;
+  --color-accent-dark: #5C7D67;
+  --color-danger:      #C07A5A;
+
+  /* Tipografía */
+  --font-body:   'Lora', Georgia, serif;
+  --font-ui:     'Inter', system-ui, sans-serif;
+  --text-sm:     0.875rem;
+  --text-base:   1rem;
+  --text-lg:     1.25rem;
+  --text-xl:     1.5rem;
+  --text-2xl:    2rem;
+  --leading:     1.75;
+
+  /* Espaciado */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Layout */
+  --max-width:    640px;
+  --radius-sm:    6px;
+  --radius-md:    12px;
+  --radius-lg:    20px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+
+  /* Transiciones */
+  --transition: 200ms ease;
+}
+
+/* Reset mínimo */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: var(--leading);
+  min-height: 100vh;
+}
+
+/* Contenedor principal */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
