@@ -1,6 +1,6 @@
 import {useState} from 'preact/hooks'
 import  {validateLetter, type InputValue, type ErrorValue} from "./validator"
-import { tema } from '../../constants'
+
 
 
 export const setForm = ()=>{

@@ -1,5 +1,5 @@
 import { useState } from "preact/hooks"
-import  {validateLetter, type InputValue, type ErrorValue} from "./validator"
+import  {validateLetter} from "./validator"
 import { tema } from '../../constants'
 import '../../styles/form.css'
 import ConfirmModal from '../modals/modalComponents/ConfirmModal'
@@ -15,27 +15,7 @@ const Form = ({onClose}: PropForm) => {
     const [showConfirmModal, setShowConfirmModal] = useState(false)
     const [showSuccessModal, setShowSuccessModal] = useState(false)
   const {handleChange, input, setInput, errors, setErrors} = setForm()
-  //   const [input, setInput] = useState<InputValue>({
-  //       tema: 'Para quien lo necesite',
-  //       mensaje: ""
-  //   })
 
-  //   const [errors, setErrors] = useState<ErrorValue>({
-  //       tema: "",
-  //       mensaje: ""
-  //   })
-  // const handleChange = (event: any)=>{
-  //   const {name, value} = event.target
-  //   const nextInput = {
-  //       ...input,
-  //       [name]:value
-  //   } as InputValue
-  //   setInput(nextInput)
-  //   setErrors((prevError =>({
-  //       ...prevError,
-  //       [name]: validateLetter(nextInput)[name as keyof ErrorValue]
-  //   })))
-  // }
   const handleSubmit = (e: any)=>{
     e.preventDefault()
     const validationErrors = validateLetter(input)
@@ -46,19 +26,18 @@ const Form = ({onClose}: PropForm) => {
     }
   }
 
-  // Esta es la función aislada donde harás tu llamada a la API
+  // Esta es la función aislada donde hacemos la llamada a la API
   const confirmSubmitLetter = async () => {
     try {
 
       await createLetter(input)
-      //console.log('Mensaje enviado a la API: ', input)
       
       // Si el envío fue exitoso, avanzamos al modal de éxito:
       setShowConfirmModal(false)
       setShowSuccessModal(true)
     } catch (error) {
       console.error('Hubo un error al enviar la carta', error)
-      // Aquí podrías mostrar un error si la API falla
+   
     }
   }
 
