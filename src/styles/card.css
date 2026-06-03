@@ -1,0 +1,46 @@
+.cardContainer {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 0.5rem;
+   max-width: 90%;
+   flex-direction: row;
+   align-items: start;
+   justify-content: flex-start;
+   background-color: white;
+   color: var(--color-text);
+   border: 1px solid var(--color-border);
+   border-radius: 1rem;
+   padding: 1.2rem;
+   width: 100%;
+}
+.cardContainer h5 {
+    color:var(--color-text-muted);
+}
+.cardContainer p {
+    padding: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.cardContainer hr {
+    width: 100%;
+    border: none;
+    border-top: 2px solid var(--color-border);
+    opacity: 0.6;
+    margin: 0.75rem 0;
+}
+.cardFooter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+}
+.cardFooter p {
+     color: var(--color-text-muted);
+      font-size: medium;
+}
+.cardFooter button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}

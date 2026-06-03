@@ -1,0 +1,75 @@
+.searchContainer {
+   margin-top: 2rem;
+   margin-bottom: 1rem;
+   display: flex;
+   flex-wrap: wrap;
+   gap: 0.5rem;
+   max-width: 60%;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+}
+.searchButton,
+.btn {
+  padding: 0.75rem 1rem;
+  border-radius: 1.8em;
+  margin: 0;
+  font-size: small;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  cursor: pointer;
+  color: var(--color-text-muted);
+  transition: background-color var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
+}
+.btn {
+  min-width: 8rem;
+}
+.btn:hover,
+.btn:focus,
+.searchButton:hover,
+.searchButton:focus {
+  border-color: var(--color-accent);
+  color: var(--color-text);
+  transform: translateY(-1px);
+}
+.searchButton.active,
+.searchButton[aria-pressed='true'] {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+  border-color: var(--color-accent-dark);
+}
+.searchButton:active,
+.btn:active {
+  background-color: var(--color-accent-dark);
+  color: var(--color-bg);
+}
+.searchButton:disabled,
+.searchButton[disabled],
+.btn:disabled,
+.btn[disabled] {
+  cursor: not-allowed;
+  background-color: var(--color-surface);
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+  opacity: 0.8;
+  pointer-events: none;
+}
+.btn--secondary {
+  background: transparent;
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+.btn--secondary:hover,
+.btn--secondary:focus {
+  background: rgba(124, 158, 135, 0.08);
+}
+
+/* Evitar que los estilos :hover/:focus afecten cuando está deshabilitado */
+.searchButton:disabled:hover,
+.searchButton[disabled]:hover,
+.searchButton:disabled:focus,
+.searchButton[disabled]:focus {
+  background-color: var(--color-surface);
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+}

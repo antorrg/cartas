@@ -1,68 +1,61 @@
-# cartas
-Una app interactiva de cartas anonimas
+# 💌 Proyecto Cartas
 
-idea de paleta 
+Bienvenido al repositorio de **Cartas**, una aplicación web minimalista y rápida diseñada para que los usuarios puedan escribir, enviar y leer cartas temáticas. Este proyecto nace como una iniciativa para practicar y pulir mis habilidades en el desarrollo Frontend moderno y en la integración con Backend-as-a-Service (BaaS).
 
-Me gusta esa actitud. Acá va todo lo que necesitás:
+## 🚀 Sobre el Proyecto
 
----
+El objetivo principal de esta aplicación es ofrecer una experiencia de usuario fluida y reactiva. Permite a los usuarios consultar cartas previamente aprobadas (con un contador en tiempo real) y redactar sus propios mensajes a través de una interfaz amigable.
 
-## 🗄️ Base de datos — Supabase
+### 🛠️ Stack Tecnológico
 
-Creá una cuenta en [supabase.com](https://supabase.com) y una tabla llamada `cartas` con estas columnas:
+Este proyecto fue construido priorizando el rendimiento, la escalabilidad y el tipado estricto. Las tecnologías principales incluyen:
 
-| Columna | Tipo | Notas |
-|---|---|---|
-| `id` | uuid | Primary key, auto |
-| `mensaje` | text | El contenido de la carta |
-| `tema` | text | "duelo", "ansiedad", "soledad", "general" |
-| `created_at` | timestamp | Auto |
+* **[Preact](https://preactjs.com/):** Elegido como alternativa ultraligera a React (solo 3kB), manteniendo la misma API y ecosistema de Hooks. Ideal para interfaces rápidas y eficientes.
+* **[Vite](https://vitejs.dev/):** Utilizado como empaquetador (bundler) por su increíble velocidad en desarrollo y optimización en producción.
+* **[TypeScript](https://www.typescriptlang.org/):** Proporciona tipado estático, reduciendo drásticamente los errores en tiempo de ejecución y mejorando la experiencia de desarrollo al conectar con la base de datos.
+* **[Supabase](https://supabase.com/):** Actúa como Backend y Base de Datos PostgreSQL. Su cliente oficial (`@supabase/supabase-js`) se usa para realizar consultas asíncronas, filtrado (ej. cartas aprobadas) y operaciones de escritura.
 
-Supabase te da una **API REST automática** para esa tabla. No necesitás escribir backend.
+## ✨ Funcionalidades Principales
 
----
+* **Visualización de Cartas:** Feed dinámico de cartas aprobadas obtenidas directamente desde la base de datos relacional.
+* **Contador en Tiempo Real:** Un componente dedicado (`Counter.tsx`) que gestiona el estado asíncrono para mostrar el volumen total de interacciones de manera eficiente.
+* **Creación de Contenido:** Formularios controlados para redactar y publicar nuevas cartas, manejando estados de carga y validación.
+* **Arquitectura Modular:** Separación clara de responsabilidades:
+    * `api.ts`: Centraliza la lógica de negocio y las llamadas a la base de datos.
+    * `components/`: Componentes de UI reutilizables (Modales, Tarjetas, Contadores).
+    * `pages/`: Vistas completas de la aplicación (Home, CreateView).
 
-## 🧠 Lógica de la app
+## 🧠 Decisiones Técnicas y Arquitectura
 
-**Enviar carta**
-1. Usuario escribe mensaje + elige tema
-2. `fetch` POST a la API de Supabase con el body `{ mensaje, tema }`
-3. Confirmación visual, limpiar formulario
+* **Separación de Lógica y UI:** La lógica de consumo de datos está abstraída en el archivo `api.ts`. Esto permite que los componentes de la interfaz de usuario, como `Counter` o `Home`, permanezcan "limpios" y se centren únicamente en la presentación y el manejo del estado local (usando `useState` y `useEffect`).
+* **Manejo de Estados Asíncronos:** Implementación robusta de llamadas a la API dentro de los hooks de Preact, controlando no solo los datos (Data), sino también los estados de carga (Loading) y de error (Error) para garantizar la mejor UX posible.
 
-**Leer carta**
-1. Al cargar, hacés un `fetch` GET a Supabase con `?order=random` — ojo, Supabase no tiene orden random nativo, la vuelta es traer todas las IDs y elegir una al azar en el cliente, o usar una función de PostgreSQL
-2. Mostrás la carta con animación de entrada
-3. Botón "otra carta" que repite el proceso
+## ⚙️ Instalación y Uso Local
 
-**Contador**
-- Un `fetch` GET con `?select=count` te devuelve el total sin traer todos los registros
+Para levantar este proyecto en tu entorno local, sigue estos pasos:
 
----
+1. **Clonar el repositorio:**
+   ```bash
+   git clone <url-del-repositorio>
+   cd cartas
+   ```
 
-## 📦 Recursos clave
+2. **Instalar las dependencias:**
+   Puedes usar `npm`, `yarn` o `pnpm` (este último es el usado en el proyecto, según el `pnpm-lock.yaml`).
+   ```bash
+   pnpm install
+   ```
 
-- **[Supabase JS Client](https://supabase.com/docs/reference/javascript/introduction)** — mucho más cómodo que fetch crudo
-- **[Supabase Row Level Security](https://supabase.com/docs/guides/auth/row-level-security)** — importante: configuralo para que cualquiera pueda insertar pero no borrar ni editar
-- Para el random: buscá `RANDOM()` en las funciones de PostgreSQL de Supabase, o simplemente traés los IDs con `select=id` y elegís uno en el cliente
+3. **Configurar las Variables de Entorno:**
+   Copia el archivo de ejemplo y agrega tus credenciales de Supabase.
+   ```bash
+   cp .env.example .env
+   ```
 
----
-
-## 🎨 Diseño — una idea de paleta
-
-Algo que transmita calma, no clínico:
-- Fondo crema `#FAF7F2`
-- Texto oscuro suave `#2D2D2D`
-- Acento verde salvia `#7C9E87` o terracota `#C07A5A`
-- Fuente: **Lora** o **Merriweather** de Google Fonts — se siente manuscrito sin serlo
-
----
-
-## ⚠️ Una cosa importante
-
-Pensá en moderación desde el principio. Como es anónimo, alguien podría escribir algo dañino. La solución más simple para arrancar: **un campo `aprobada` boolean** en la tabla, que por default es `false`, y solo mostrás las que tienen `aprobada = true`. Vos las revisás manualmente desde el dashboard de Supabase antes de publicar.
-
-Con el tiempo podés automatizar eso, pero para la primera versión está bien así.
+4. **Levantar el entorno de desarrollo:**
+   ```bash
+   pnpm dev
+   ```
 
 ---
-
-Cuando tengas dudas en algún punto, avisame. Estoy acá.
+*Si eres una persona con conocimientos de programación y estás revisando este código, te agradezco tu tiempo. Te invito a explorar el archivo `src/api.ts` para ver cómo se estructuraron las consultas a Supabase y la carpeta `src/components` para revisar el manejo del ciclo de vida de los componentes en Preact.*
