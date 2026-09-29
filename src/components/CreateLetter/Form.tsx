@@ -4,7 +4,8 @@ import { tema } from '../../constants'
 import '../../styles/form.css'
 import ConfirmModal from '../modals/modalComponents/ConfirmModal'
 import SuccessModal from '../modals/modalComponents/SuccessModal'
-import { createLetter } from "../../api"
+//import { createLetter } from "../../api"
+import { hibridApiLetters } from "../../hibridApiPortableSdk"
 import {setForm} from './setForm'
 
 type PropForm = {
@@ -30,7 +31,8 @@ const Form = ({onClose}: PropForm) => {
   const confirmSubmitLetter = async () => {
     try {
 
-      await createLetter(input)
+      //await createLetter(input)
+      await hibridApiLetters.createLetter(input)
       
       // Si el envío fue exitoso, avanzamos al modal de éxito:
       setShowConfirmModal(false)

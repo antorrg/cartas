@@ -3,7 +3,7 @@ import Card from '../components/Card'
 import Counter from '../components/Counter'
 import { tema } from '../constants'
 import type { ValueLetter } from '../types'
-import { getLetters } from '../api'
+import { hibridApiLetters } from '../hibridApiPortableSdk'
 
 
 type PropHome = {
@@ -20,13 +20,31 @@ const Home = ({onChange}:PropHome) => {
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0)
   const [disabled, setDisabled] = useState<boolean>(false)
   const [letters, setLetters] = useState(letterMock)
-
-  const cartas = async():Promise<ValueLetter[]>=>{
-    return await getLetters()
+  const [letterCount, setLetterCount] = useState<number | null>(null)
+  const [counterError, setCounterError] = useState<boolean>(false)
+  type CartasResponse = {
+    letters: ValueLetter[],
+    count: number
+  }
+  const cartas = async():Promise<CartasResponse>=>{
+    //return await getLetters()
+   const response = await hibridApiLetters.getLetters({page:'1', limit:'20'})
+   return {
+    letters: response.data,
+    count: response.count
+   }
     
   }
   useEffect(()=>{
-    cartas().then(setLetters)
+    cartas()
+      .then(({ letters, count }) => {
+        setLetters(letters)
+        setLetterCount(count)
+      })
+      .catch((error) => {
+        console.error('Error cargando las cartas:', error)
+        setCounterError(true)
+      })
   },[])
 
   const selectedTema = tema[activeIndex] ?? tema[0]
@@ -68,7 +86,7 @@ const Home = ({onChange}:PropHome) => {
         ) : (
           <p>No hay cartas para el tema seleccionado.</p>
         )}
-        <Counter/>
+        <Counter count={letterCount} error={counterError} />
         <button className="btn" style={{marginTop:'1rem'}} onClick={onChange}>
           Escriba su carta y enviela...
         </button>

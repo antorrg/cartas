@@ -1,26 +1,18 @@
-import { useState, useEffect } from 'preact/hooks'
-import { counter } from '../api'
+type CounterProps = {
+    count: number | null
+    error: boolean
+}
 
-export default function Counter() {
-    const [count, setCount] = useState<number | null>(null)
-    const [loading, setLoading] = useState<boolean>(true)
+export default function Counter({ count, error }: CounterProps) {
+    if (error) {
+        return (
+            <div className="smallTitle">
+                <p>No se pudo cargar el contador.</p>
+            </div>
+        )
+    }
 
-    useEffect(() => {
-            setLoading(true)
-    
-    counter() // Esta es tu función de la API
-        .then((total) => {
-            setCount(total)
-        })
-        .catch((error) => {
-            console.error('Error cargando el contador:', error)
-        })
-        .finally(() => {
-            setLoading(false)
-        })
-    }, []) 
-
-    if (loading) {
+    if (count === null) {
         return (
             <div className="smallTitle">
                 <p>Cargando contador...</p>
