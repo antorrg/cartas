@@ -10,7 +10,7 @@ export class HibridApiLetters {
         this.apiKey = apiKey
     }
     async createLetter(data:{tema:string, mensaje: string}){
-        const response = await fetch(`${this.url}/api/v1/letter`,{
+        const response = await fetch(`${this.url}/api/v1/extclients/letters/`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ export class HibridApiLetters {
             throw new Error(`Error ${response.status} in request`)
         }
         const pepe = await response.json()
-        console.log('soy pepe',pepe)
+        //console.log('soy pepe',pepe)
         return pepe
     }
     async getLetters(params: {page:string, limit: string}){
