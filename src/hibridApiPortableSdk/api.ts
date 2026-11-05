@@ -27,7 +27,7 @@ export class HibridApiLetters {
     }
     async getLetters(params: {page:string, limit: string}){
           const queryParams = new URLSearchParams(params).toString();
-        const finalUrl = `${this.url}/api/v1/letter?${queryParams}`
+        const finalUrl = `${this.url}/api/v1/extclients/letter?${queryParams}`
         const response = await fetch(finalUrl,{
             method: 'GET',
             headers: {
