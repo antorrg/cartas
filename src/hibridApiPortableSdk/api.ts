@@ -39,7 +39,7 @@ export class HibridApiLetters {
             throw new Error(`Error ${response.status} in request`)
         }
                const pepe = await response.json()
-        console.log('soy pepe', pepe.results)
-        return pepe.results
+        //console.log('soy pepe', pepe)
+        return pepe
     }
 }

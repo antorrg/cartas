@@ -31,7 +31,7 @@ const Home = ({onChange}:PropHome) => {
    const response = await hibridApiLetters.getLetters({page:'1', limit:'20'})
    return {
     letters: response.data,
-    count: response.count
+    count: response.info.totalElements
    }
     
   }
@@ -46,7 +46,7 @@ const Home = ({onChange}:PropHome) => {
         setCounterError(true)
       })
   },[])
-
+console.log(letters, letterCount)
   const selectedTema = tema[activeIndex] ?? tema[0]
   const filteredCards = letters?.filter((letter) => letter.tema === selectedTema)
   const currentCard = filteredCards[currentCardIndex]
